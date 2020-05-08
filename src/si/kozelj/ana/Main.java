@@ -2,6 +2,7 @@ package si.kozelj.ana;
 
 import si.kozelj.ana.algorithms.BreadthSolver;
 import si.kozelj.ana.algorithms.DynSolver;
+import si.kozelj.ana.algorithms.GreedySolver;
 import si.kozelj.ana.algorithms.SubsetSolver;
 
 import java.io.IOException;
@@ -31,6 +32,7 @@ public class Main {
         SubsetSolver solver = switch (type) {
             case DYN -> new DynSolver();
             case EXH -> new BreadthSolver();
+            case GREEDY -> new GreedySolver();
             default -> throw new UnsupportedOperationException("Not implemented, boi");
         };
 
