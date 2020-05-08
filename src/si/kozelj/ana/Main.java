@@ -1,5 +1,6 @@
 package si.kozelj.ana;
 
+import si.kozelj.ana.algorithms.DynSolver;
 import si.kozelj.ana.algorithms.SubsetSolver;
 
 import java.io.IOException;
@@ -11,12 +12,13 @@ import java.util.stream.Collectors;
 public class Main {
 
     public static void main(String[] args) {
-        if (args.length != 2) {
+        if (args.length != 3) {
             throw new RuntimeException("More args");
         }
 
         AlgorithmTypes type = AlgorithmTypes.getType(args[0]);
-        String fileName = args[1].contains(".txt") ? args[1] : args[1].concat(".txt");
+        Integer k = Integer.valueOf(args[1]);
+        String fileName = args[2].contains(".txt") ? args[2] : args[2].concat(".txt");
 
         List<Integer> values;
         try {
@@ -26,11 +28,13 @@ public class Main {
         }
 
         SubsetSolver solver = switch (type) {
-            case DYN -> null;
+            case DYN -> new DynSolver();
             default -> throw new UnsupportedOperationException("Not implemented, boi");
         };
 
+        int result = solver.getResult(values, k);
+
         System.out.println("Result is:");
-        System.out.println(solver.getResult(values));
+        System.out.println(result);
     }
 }
