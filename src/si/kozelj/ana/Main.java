@@ -1,5 +1,6 @@
 package si.kozelj.ana;
 
+import si.kozelj.ana.algorithms.BreadthSolver;
 import si.kozelj.ana.algorithms.DynSolver;
 import si.kozelj.ana.algorithms.SubsetSolver;
 
@@ -29,6 +30,7 @@ public class Main {
 
         SubsetSolver solver = switch (type) {
             case DYN -> new DynSolver();
+            case EXH -> new BreadthSolver();
             default -> throw new UnsupportedOperationException("Not implemented, boi");
         };
 
