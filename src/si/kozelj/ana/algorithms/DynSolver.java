@@ -33,7 +33,7 @@ public class DynSolver implements SubsetSolver{
             }
         }
 
-        printTable(table);
+        //printTable(table);
 
         return table[valuesCount][k];
     }

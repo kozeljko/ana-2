@@ -11,14 +11,14 @@ import java.util.stream.Collectors;
 public class Main {
 
     public static void main(String[] args) {
-        if (args.length < 3) {
+        if (args.length < 1) {
             throw new RuntimeException("More args");
         }
 
         AlgorithmTypes type = AlgorithmTypes.getType(args[0]);
-        Integer k = Integer.valueOf(args[1]);
-        String fileName = args[2].contains(".txt") ? args[2] : args[2].concat(".txt");
-        Double epsilon = args.length == 4 ? Double.valueOf(args[3]) : null;
+
+        String fileName = "ss5.txt";
+        Double epsilon = 0.4;
 
         List<Integer> values;
         try {
@@ -26,6 +26,9 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException("Can't read shit");
         }
+
+        Integer n = values.remove(0);
+        Integer k = values.remove(0);
 
         SubsetSolver solver = switch (type) {
             case DYN -> new DynSolver();
@@ -36,6 +39,7 @@ public class Main {
 
         int result = solver.getResult(values, k);
 
+        System.out.println(String.format("n: %s, k: %s", n, k));
         System.out.println("Result is:");
         System.out.println(result);
     }
