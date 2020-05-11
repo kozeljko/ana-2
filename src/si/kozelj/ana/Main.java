@@ -1,9 +1,6 @@
 package si.kozelj.ana;
 
-import si.kozelj.ana.algorithms.BreadthSolver;
-import si.kozelj.ana.algorithms.DynSolver;
-import si.kozelj.ana.algorithms.GreedySolver;
-import si.kozelj.ana.algorithms.SubsetSolver;
+import si.kozelj.ana.algorithms.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,13 +11,14 @@ import java.util.stream.Collectors;
 public class Main {
 
     public static void main(String[] args) {
-        if (args.length != 3) {
+        if (args.length < 3) {
             throw new RuntimeException("More args");
         }
 
         AlgorithmTypes type = AlgorithmTypes.getType(args[0]);
         Integer k = Integer.valueOf(args[1]);
         String fileName = args[2].contains(".txt") ? args[2] : args[2].concat(".txt");
+        Double epsilon = args.length == 4 ? Double.valueOf(args[3]) : null;
 
         List<Integer> values;
         try {
@@ -33,7 +31,7 @@ public class Main {
             case DYN -> new DynSolver();
             case EXH -> new BreadthSolver();
             case GREEDY -> new GreedySolver();
-            default -> throw new UnsupportedOperationException("Not implemented, boi");
+            case FPTAS -> new FPTASSolver(epsilon);
         };
 
         int result = solver.getResult(values, k);
