@@ -5,6 +5,8 @@ import si.kozelj.ana.algorithms.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +20,7 @@ public class Main {
         AlgorithmTypes type = AlgorithmTypes.getType(args[0]);
 
         String fileName = "ss5.txt";
-        Double epsilon = 0.4;
+        Double epsilon = 0.5;
 
         List<Integer> values;
         try {
@@ -37,10 +39,13 @@ public class Main {
             case FPTAS -> new FPTASSolver(epsilon);
         };
 
+        Instant start = Instant.now();
         int result = solver.getResult(values, k);
+        Instant end = Instant.now();
 
         System.out.println(String.format("n: %s, k: %s", n, k));
         System.out.println("Result is:");
         System.out.println(result);
+        System.out.println("Time: " + Duration.between(start, end).toString());
     }
 }
