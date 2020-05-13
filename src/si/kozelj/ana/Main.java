@@ -7,8 +7,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.IntSupplier;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -32,6 +37,14 @@ public class Main {
         Integer n = values.remove(0);
         Integer k = values.remove(0);
 
+        // For EXH algorithm and graph at end.
+
+        /*
+        SupplierImpl supplier = new SupplierImpl();
+        k = 500000;
+        values = IntStream.generate(supplier).limit(500).boxed().collect(Collectors.toList());
+        */
+
         SubsetSolver solver = switch (type) {
             case DYN -> new DynSolver();
             case EXH -> new BreadthSolver();
@@ -47,5 +60,14 @@ public class Main {
         System.out.println("Result is:");
         System.out.println(result);
         System.out.println("Time: " + Duration.between(start, end).toString());
+    }
+
+    private static class SupplierImpl implements IntSupplier {
+        private int x = 1000;
+
+        @Override
+        public int getAsInt() {
+            return x--;
+        }
     }
 }
